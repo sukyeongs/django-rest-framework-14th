@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+  db:
+    container_name: postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+  web:
+    container_name: web
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DJANGO_SETTINGS_MODULE: django-rest-framework-14th.settings.dev
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    entrypoint:
+      - sh
+      - /app/config/docker/entrypoint.sh
+
+volumes:
+  app:
+  pgdata:
