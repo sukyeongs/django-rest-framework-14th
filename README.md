@@ -1,5 +1,6 @@
 # django-docker
 django를 Docker & Github Action으로 배포해봅시다.
+현진이의 깃입니다! 
 
 # 환경
 - docker 
