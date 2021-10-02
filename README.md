@@ -4,7 +4,7 @@
 
 # 원리 -> Docker + Github Actions
 
-## => CD (Continuous Delivery) - 지속적 배포   
+### => CD (Continuous Delivery) - 지속적 배포   
   
   
 
