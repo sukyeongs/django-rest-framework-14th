@@ -5,9 +5,9 @@
 ## 원리 -> Docker + Github Actions
 
 ### => CD (Continuous Delivery) - 지속적 배포
-
-
-
++
++
++
 ### Docker 용도 - 어떤 OS에서도 같은 환경을 만들어준다
 
 > EC2에서 서버를 만들면 ubuntu OS로 아무것도 없는 인스턴스 생성 *( 인스턴스: 클라우드의 가상 서버 )*
