@@ -4,11 +4,11 @@
 
 ## 원리 -> Docker + Github Actions
 
-#### => CD (Continuous Delivery) - 지속적 배포
+### => CD (Continuous Delivery) - 지속적 배포
 
 
 
-#### Docker 용도 - 어떤 OS에서도 같은 환경을 만들어준다
+### Docker 용도 - 어떤 OS에서도 같은 환경을 만들어준다
 
 > EC2에서 서버를 만들면 ubuntu OS로 아무것도 없는 인스턴스 생성 *( 인스턴스: 클라우드의 가상 서버 )*
 >
@@ -22,7 +22,7 @@
 
 
 
-#### Github Actions 용도 - 1) 서버 접속 후 Docker 실행, 2) master에 push된 commit 복사
+### Github Actions 용도 - 1) 서버 접속 후 Docker 실행, 2) master에 push된 commit 복사
 
 > 서버에 접속해서 Docker를 실행
 >
@@ -30,7 +30,7 @@
 
 
 
-#### Docker vs Docker-compose
+### Docker vs Docker-compose
 
 Docker: 가상 컨테이너 기술
 
@@ -50,7 +50,7 @@ docker-compose: 이 이미지를 여러개 띄워서 네트워크 만들고, 컨
 
 
 
-#### 서버가 뜨는 과정 - GitHub Actions가 docker-compose.prod.yaml 파일을 실행
+### 서버가 뜨는 과정 - GitHub Actions가 docker-compose.prod.yaml 파일을 실행
 
 Github Actions가 실행시키는 파일(deploy.yml)의 마지막 줄의 config/scripts/deploy.sh 파일의 `sudo docker-compose -f /home/ubuntu/srv/ubuntu/docker-compose.prod.yml up --build -d` 명령어로 서버가 빌드, 실행
 
@@ -58,7 +58,7 @@ Github Actions가 실행시키는 파일(deploy.yml)의 마지막 줄의 config/
 
 
 
-#### docker-compose.prod.yml vs docker-compose.yml
+### docker-compose.prod.yml vs docker-compose.yml
 
 | docker-compose.prod.yml |  docker-compose.yml   |
 | :---------------------: | :-------------------: |
@@ -67,7 +67,7 @@ Github Actions가 실행시키는 파일(deploy.yml)의 마지막 줄의 config/
 
 
 
-#### docker-compose.prod.yml 파일에 db 컨테이너가 없는 이유
+### docker-compose.prod.yml 파일에 db 컨테이너가 없는 이유
 
 - 데이터가 날아가거나, 유출될 위험이 있음
 
@@ -77,7 +77,7 @@ Github Actions가 실행시키는 파일(deploy.yml)의 마지막 줄의 config/
 
 
 
-#### Nginx?
+### Nginx?
 
 WAS(Web Application Server): web에서 application을 serving하는 것
 
@@ -121,7 +121,7 @@ COPY nginx.conf /etc/nginx/conf.d
 
 
 
-#### docker-compose up 의미
+### docker-compose up 의미
 
 최종 실행 코드: 
 
@@ -147,21 +147,21 @@ up을 한다고 해서 서버가 뜨는 것이 아님! django가 실행되어야
 
 
 
-#### Command
+### Command
 
 Command를 사용하여 컨테이너 수행 명령을 정의한 경우, 컨테이너를 실행할 때 인자값을 주게 되면 Dockerfile에 지정된 cmd 값을 대신하여 지정한 인자값으로 변경하여 실행됨
 
 
 
-#### Entrypoint
+### Entrypoint
 
 Entrypoint를 사용하여 컨테이너 수행 명령을 정의한 경우, 해당 컨테이너가 수행될 때 반드시 Entrypoint에서 지정한 명령을 수행되도록 지정됨
 
 
 
-#### Cmd vs Entrypoint 예제
+### Cmd vs Entrypoint 예제
 
-1. ##### Cmd
+1. #### Cmd
 
 ```dockerfile
 # Dockerfile 
@@ -223,7 +223,7 @@ root 1 0 0 15:19 ? 00:00:00 ps -aef
 
 
 
-2. ##### Entrypoint
+2. #### Entrypoint
 
 ```dockerfile
 # Dockerfile
@@ -284,7 +284,7 @@ Try '/bin/df --help' for more information.
 
 
 
-#### Command와 Entrypoint의 올바른 사용 방법
+### Command와 Entrypoint의 올바른 사용 방법
 
 1. 컨테이너가 수행될 때 변경되지 않을 실행 명령은 Entrypoint로 정의하는 것이 좋다.
 
@@ -300,7 +300,7 @@ Try '/bin/df --help' for more information.
 
 
 
-#### Github Actions가 수행하는 것
+### Github Actions가 수행하는 것
 
 ```yaml
 name: Deploy to EC2
@@ -371,7 +371,7 @@ jobs:
 
 
 
-#### 요약
+### 요약
 
 1. Github Actions가 코드를 서버에 올리고 deploy.sh를 실행
 
