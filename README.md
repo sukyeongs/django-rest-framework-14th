@@ -442,7 +442,7 @@ jobs:
 
 2. 쿼리셋으로 조회해보기 (hello world는 캡처하기 전에 삽입했던 게시글 입니다!)
 
-   ![orm2](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm2.PNG)
+![orm2](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm2.PNG)
 
 3. filter 함수 사용해보기
 
