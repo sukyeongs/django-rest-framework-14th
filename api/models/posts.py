@@ -16,3 +16,6 @@ class Post(models.Model):
     def publish(self):
         self.upload_time = timezone.now()
         self.save()
+
+    def __str__(self):
+        return self.post_content
