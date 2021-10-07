@@ -438,15 +438,15 @@ jobs:
 
 1. 객체 3개 넣기
 
-![orm1](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm1.PNG)
+![orm1](https://user-images.githubusercontent.com/80563849/136409070-04135b6d-6e0a-4bc4-a723-3463c6e9a3fe.PNG)
 
 2. 쿼리셋으로 조회해보기 (hello world는 캡처하기 전에 삽입했던 게시글 입니다!)
 
-![orm2](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm2.PNG)
+![orm2](https://user-images.githubusercontent.com/80563849/136409190-fe77e595-1724-4d7f-9307-27b75ec5c089.PNG)
 
 3. filter 함수 사용해보기
 
-![orm3](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm3.PNG)
+![orm3](https://user-images.githubusercontent.com/80563849/136409231-4f769df3-2845-42b1-b328-88b9e8e236b8.PNG)
 
 
 
