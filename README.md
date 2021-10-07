@@ -431,4 +431,27 @@ jobs:
 
    => Story(스토리를 담는 모델)클래스에 story_author(스토리 작성자), story_content(스토리 내용), upload_time(업로드 시간) 변수를 생성한다.
 
-   => story_author는 User 클래스를 ForeignKey로 받아온다.
+   => story_author는 User 클래스를 ForeignKey로 받아온다.   
+
+
+### ORM 적용해보기
+
+1. 객체 3개 넣기
+
+![orm1](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm1.PNG)
+
+2. 쿼리셋으로 조회해보기 (hello world는 캡처하기 전에 삽입했던 게시글 입니다!)
+
+   ![orm2](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm2.PNG)
+
+3. filter 함수 사용해보기
+
+![orm3](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm3.PNG)
+
+
+
+### 간단한 회고
+
+1. 데이터베이스 강의에서 mysql에 대한 내용을 배웠어서 그런지 매핑 관계 이해는 생각보다 괜찮았다.
+2. models.py 파일에 한번에 여러 모델을 정의하는 것보단 models 디렉토리를 생성한 후에 파일을 세분화하는 것이 보기에도 편하다는 것을 알게 되었다.
+3. mysql 문을 작성할 때 끝의 세미콜론(;)을 잊지 말아야겠다.
