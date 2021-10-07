@@ -4,7 +4,7 @@ from api.models.posts import Post
 from api.models.user import User
 
 
-class PostComment(models.Model):
+class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_author = models.ForeignKey(User, on_delete=models.CASCADE)
     comment_content = models.TextField()
