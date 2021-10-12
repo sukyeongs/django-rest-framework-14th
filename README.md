@@ -403,7 +403,6 @@ jobs:
 
    => 사용자 정보를 담는 user는 User 클래스를 ForeignKey로 받아온다.
 
-   => 각 사용자들은 하나의 프로필을 가지고 있기 때문에 Profile모델과 User모델은 1:1 관계이다. 
 
 3. 사용자들은 피드에 사진과 함께 게시물을 올린다. 게시물에는 작성자와 위치, 좋아요 수, 게시물 내용, 댓글, 업로드 시간 정보가 담겨있다.
 
@@ -438,20 +437,21 @@ jobs:
 
 1. 객체 3개 넣기
 
-![orm1](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm1.PNG)
+![orm1](https://user-images.githubusercontent.com/80563849/136409070-04135b6d-6e0a-4bc4-a723-3463c6e9a3fe.PNG)
 
 2. 쿼리셋으로 조회해보기 (hello world는 캡처하기 전에 삽입했던 게시글 입니다!)
 
-   ![orm2](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm2.PNG)
+![orm2](https://user-images.githubusercontent.com/80563849/136409190-fe77e595-1724-4d7f-9307-27b75ec5c089.PNG)
 
 3. filter 함수 사용해보기
 
-![orm3](D:\Users\SukyeongSeo\Desktop\바탕 화면\orm3.PNG)
+![orm3](https://user-images.githubusercontent.com/80563849/136409231-4f769df3-2845-42b1-b328-88b9e8e236b8.PNG)
 
 
 
 ### 간단한 회고
 
 1. 데이터베이스 강의에서 mysql에 대한 내용을 배웠어서 그런지 매핑 관계 이해는 생각보다 괜찮았다.
-2. models.py 파일에 한번에 여러 모델을 정의하는 것보단 models 디렉토리를 생성한 후에 파일을 세분화하는 것이 보기에도 편하다는 것을 알게 되었다.
-3. mysql 문을 작성할 때 끝의 세미콜론(;)을 잊지 말아야겠다.
+2. models.py 파일에 한번에 여러 모델을 정의하는 것보단 models 디렉토리를 생성한 후에 파일을 세분화하는 것이 보기에도 편하다는 것을 알게 되었다. -> models/init 파일에 import 문을 작성해야한다는 것을 알게 되었다.
+3. mysql 문을 작성할 때 끝의 세미콜론(;)을 꼭 쓰자.
+4. github actions은 왜 에러가 나는걸까
