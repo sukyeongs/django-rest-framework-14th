@@ -1,4 +1,4 @@
-### 4주차
+### 4주차   
 
 ## 1️⃣ 데이터 삽입
 
@@ -61,3 +61,22 @@
 
   ![image](https://user-images.githubusercontent.com/80563849/138139771-7500ec46-71c2-4fb7-b55d-6dfb525704cb.png)
 
+
+
+## 4️⃣ 회고
+
+가장 오래 걸렸던 과제였던 것 같다. 아직 완벽하게 이해가 된 것 같지 않아서 날 잡고 열심히 공부해야겠다..😥 erd와 변경된 model을 3주차 README에 반영해야겠다.
+
+
+
+## ☑ 참고
+
+- `django.db.utils.IntegrityError` 에러가 발생한 경우: 에러가 발생한 **필드가 null 값이 되지 않도록 값 필수로 설정**
+
+- POSTMAN으로 POST api 작성 방법: [POST api - Body->raw](https://meetup.toast.com/posts/107) (param으로 값을 입력해서 호출한 경우, 
+
+  `rest_framework.exceptions.parseerror: json parse error - expecting value: line 1 column 1 (char 0)` 에러가 발생했음)
+
+- `'manager' object has no attribute 'get_by_natural_key'` 에러가 발생한 경우: User 클래스에 `objects = UserManager()` 추가 (**AbstractBaseUser로 custom user를 생성한 경우** **UserManager 필수**로 선언, 추가)
+
+- [verbose name이란](https://djangojeng-e.github.io/2020/08/02/Django-Models-6%ED%8E%B8-Fields-verbose-field-names/)
