@@ -8,7 +8,6 @@ from api.models.user import User
 class Post(models.Model):
     post_author = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.TextField()
-    numOfLike = models.PositiveIntegerField()
     post_content = models.TextField()
     is_comment = models.BooleanField()
     upload_time = models.DateTimeField(auto_now=True)
