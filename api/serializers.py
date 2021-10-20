@@ -1,22 +1,27 @@
 from rest_framework import serializers
-from .models import Profile, Post, Image, Comment
+from .models import *
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'instagram_id', 'is_professional']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
 
 
 class PostSerializer(serializers.ModelSerializer):
     post_author = serializers.SerializerMethodField()
-    comments = serializers.SerializerMethodField()
+    post_comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'post_author', 'post_content', 'comments']
+        fields = ['id', 'post_author', 'post_content', 'post_comments', 'location']
 
     def get_post_author(self, obj):
         return obj.post_author.username
 
-    def get_comments(self, obj):
-        queries = obj.post_comments.all()
-        comments = []
-        for query in queries:
-            comment = {'comment_author': query.comment_author.username, 'comment_content': query.comment_content}
-            comments.append(comment)
-        return comments
