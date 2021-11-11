@@ -156,15 +156,14 @@ view.py를 작성한 후 urls.py를 작성한다.
 - URL: `api/posts`
 - Method: `GET`
 
-![모든 Post 가져오기](![image](https://user-images.githubusercontent.com/80563849/141236677-1a991cf2-e849-4912-8e37-f0309c1bf72a.png)
-)
+![모든포스트가져오기](https://user-images.githubusercontent.com/80563849/141237418-2afff7e9-e32e-4fb6-bb0a-1c2c259db18d.PNG)
 
 **2️⃣ 특정 데이터를 가져오는 API**
 
 - URL: `api/posts/\<int:pk>` (`api/posts/2`)
 - Method: `GET`
 
-![특정 Post 가져오기](![image](https://user-images.githubusercontent.com/80563849/141236731-99dd17bb-18a2-43b8-8449-1eae0aeeb4a1.png))
+![특정포스트가져오기](https://user-images.githubusercontent.com/80563849/141237490-a52ed993-ae7f-49dc-aa3b-36c1a114dbb8.PNG)
 
 ### CREATE API (`POST`)
 
@@ -196,7 +195,7 @@ serializer의 값이 `valid` 하면, 즉 요청한 값이 `valid`하면 `Http201
 - Method: `POST`
 - Body: `{"필드명": 필드값, ... }`
 
-![새로운 데이터 create하기](![image](https://user-images.githubusercontent.com/80563849/141236778-c468e298-7454-49f6-bfc1-1e45a97897af.png))
+![새로운데이터생성하기](https://user-images.githubusercontent.com/80563849/141237547-164620a5-b15c-47eb-80e7-e6a96fb6015e.PNG)
 
 
 
@@ -231,7 +230,7 @@ class PostDetail(APIView):
 - Method: `PUT`
 - Body: `{"필드명": 업데이트 할 필드값, ... }` (`{"location": "Songdo"}`)
 
-![특정 Post 업데이트하기](![image](https://user-images.githubusercontent.com/80563849/141236835-98fced1f-0d50-48c7-aaf9-8303709f581e.png))
+  ![특정데이터업데이트하기](https://user-images.githubusercontent.com/80563849/141237595-a49712c2-93f0-4bff-856f-e4f8548012db.PNG)
 
 
 
@@ -262,11 +261,11 @@ delete() 함수로 삭제를 한 후, `Http204`로 삭제가 완료되었음을 
 
 아래 사진처럼 삭제 요청을 보내고,
 
-![삭제 요청보내기](![image](https://user-images.githubusercontent.com/80563849/141236870-4783364a-f6b5-4e16-a09c-9aa16e4f4380.png))
+![삭제요청보내기](https://user-images.githubusercontent.com/80563849/141237632-3de6d0cf-eadd-404a-8d8d-f19ca537d6b4.PNG)
 
 요청을 보낸 후, GET api/post/3 으로 3번째 Post를 조회하면, 
 
-![다시 조회하기](![image](https://user-images.githubusercontent.com/80563849/141236900-68c46cfa-e8f9-47b6-95c5-c8357f443494.png))
+![삭제하고다시조회하기](https://user-images.githubusercontent.com/80563849/141237654-b0dc8d41-3e64-4359-b1f2-2b274bb5acae.PNG)
 
 
 
