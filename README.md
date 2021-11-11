@@ -80,3 +80,196 @@
 - `'manager' object has no attribute 'get_by_natural_key'` 에러가 발생한 경우: User 클래스에 `objects = UserManager()` 추가 (**AbstractBaseUser로 custom user를 생성한 경우** **UserManager 필수**로 선언, 추가)
 
 - [verbose name이란](https://djangojeng-e.github.io/2020/08/02/Django-Models-6%ED%8E%B8-Fields-verbose-field-names/)
+
+
+## 5주차 과제
+
+기존에 작성했던 views.py 를 **CBV인 API View**로 변경할 것이다.
+
+
+
+### READ API (`GET`)
+
+#### 1. views.py 작성하기
+
+```python
+# views.py
+from django.http import Http404
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .models import *
+from .serializers import PostSerializer
+
+
+class PostList(APIView):
+    def get(self, request, format=None):
+        queryset = Post.objects.all()
+        serializer = PostSerializer(queryset, many=True)
+        return Response(serializer.data)
+```
+
+`PostList`의 `get` 함수는 **모든 Post의 list를 가져오는 함수**이다.  
+
+`queryset`에 모든 `Post` 데이터를 저장한 후 `PostSerializer`에 queryset을 `many=True`로 삽입하여 **serializer에 담긴 data를 반환**하는 형식이다.
+
+```python
+class PostDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        post = self.get_object(pk)    # get_object로 error check
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+```
+
+`PostDetail`의 `get` 함수는 특정 `id` (=pk)를 받아 **그 id값을 지닌 Post를 가져오는 함수**이다.
+
+`get_object`는 **Error catch를 위한 함수**로, 요청을 보낸 id가 존재하지 않는 경우엔 `Http404`에러를 발생시킨다.
+
+#### 2. urls.py 작성하기
+
+```python
+# urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('posts', views.PostList.as_view()),
+    path('posts/<int:pk>', views.PostDetail.as_view())
+]
+```
+
+view.py를 작성한 후 urls.py를 작성한다.
+
+
+
+#### 결과
+
+**1️⃣ 모든 데이터를 가져오는 API**
+
+- URL: `api/posts`
+- Method: `GET`
+
+![image-20211111012952214](C:\Users\서수경\AppData\Roaming\Typora\typora-user-images\image-20211111012952214.png)
+
+**2️⃣ 특정 데이터를 가져오는 API**
+
+- URL: `api/posts/\<int:pk>` (`api/posts/2`)
+- Method: `GET`
+
+![image-20211111012925749](C:\Users\서수경\AppData\Roaming\Typora\typora-user-images\image-20211111012925749.png)
+
+### CREATE API (`POST`)
+
+#### views.py 작성하기
+
+```python
+# views.py
+
+class PostList(APIView):
+	def post(self, request, format=None):
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+```
+
+`PostList`의 `post` 함수는 **새 Post를 create하는 함수**이다. 
+
+serializer의 값이 `valid` 하면, 즉 요청한 값이 `valid`하면 `Http201`을, `invalid`하다면 `Http400` error를 반환한다.   
+
+
+
+#### 결과
+
+**3️⃣ 새로운 데이터를 create하는 API** 
+
+- URL: `api/posts`
+- Method: `POST`
+- Body: `{"필드명": 필드값, ... }`
+
+![image-20211111033914030](C:\Users\서수경\AppData\Roaming\Typora\typora-user-images\image-20211111033914030.png)
+
+
+
+### UPDATE API (`PUT`)
+
+#### views.py 작성하기
+
+```python
+# views.py
+
+class PostDetail(APIView):
+    def put(self, request, pk):
+        post = self.get_object(pk)
+        serializer = PostSerializer(post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+```
+
+`PostDetail`의 `put` 함수는 특정 `id`(=pk)를 받아 **그 id값을 지닌 Post의 내용을 변경하는 함수**이다.
+
+요청한 값이 `valid`하면 **변경된 값을 보여주고**, `invalid`하면 `Http400` error를 발생시킨다.
+
+### 
+
+#### 결과
+
+**4️⃣ 특정 데이터를 업데이트하는 API**
+
+- URL: `api/posts/<int:pk>` (`api/posts/3`)
+- Method: `PUT`
+- Body: `{"필드명": 업데이트 할 필드값, ... }` (`{"location": "Songdo"}`)
+
+![image-20211111030414042](C:\Users\서수경\AppData\Roaming\Typora\typora-user-images\image-20211111030414042.png)
+
+
+
+### DELETE API (`DELETE`)
+
+#### views.py 작성하기
+
+```python
+class PostDetail(APIView):
+	def delete(self, request, pk):
+    	post = self.get_object(pk)
+    	post.delete()
+    	return Response(status=status.HTTP_204_NO_CONTENT)
+```
+
+`PostDetail`의 `delete` 함수는 특정 `id`(=pk)의 **Post를 삭제하는 함수**이다.
+
+delete() 함수로 삭제를 한 후, `Http204`로 삭제가 완료되었음을 보여준다.
+
+
+
+#### 결과
+
+**5️⃣ 특정 데이터를 삭제하는 API**
+
+- URL: `api/posts/\<int:pk>`
+- Method: `DELETE`
+
+아래 사진처럼 삭제 요청을 보내고,
+
+![image-20211111030720891](C:\Users\서수경\AppData\Roaming\Typora\typora-user-images\image-20211111030720891.png)
+
+요청을 보낸 후, GET api/post/3 으로 3번째 Post를 조회하면, 
+
+![image-20211111131359401](C:\Users\서수경\AppData\Roaming\Typora\typora-user-images\image-20211111131359401.png)
+
+
+
+### 간단한 회고
+
+- 새로운 데이터를 생성하는 POST 함수에서 계속 에러가 난다. ForeignKey로 post_author의 id를 생성하면서 `IntegrityError` 가 떠서 해결을.. 얼른... 해야겠다..
+- 확실히 지난주에 만들었던 view 보다 API view를 사용하는 것이 코드가 깔끔해보여서 좋았다.
