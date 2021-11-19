@@ -753,7 +753,9 @@ delete() 함수로 삭제를 한 후, `Http204`로 삭제가 완료되었음을 
 ## 6주차 과제
 ### 1. Viewset으로 리팩토링하기
 
-#### 1) ModelViewSet 상속 받기
+APIView → ViewSet
+
+#### 1) ModelViewSet 상속 받기 
 
 ```python
 # views.py
@@ -785,4 +787,30 @@ urlpatterns = router.urls
 
 ### 2. Filtering
 
-전 주 스터디에서 겪었던 FK 에러가 여기서도 발생하는 것 같아서,... 급하게 수정중입니다 ㅠㅡㅠ 금요일 오후5시 전으로 꼭 해결하겠슴다........
+```python
+# views.py
+
+from .models import *
+from .serializers import PostSerializer
+from rest_framework import viewsets
+from django_filters.rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+
+
+class PostFilter(filters.FilterSet):
+
+    class Meta:
+        model = Post
+        fields = {
+            'location': 'Seoul'
+        }
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PostFilter
+```
+
+에러 잡기 전) 간단한 필터 기능을 구현했다. Post의 위치가 서울인 게시글만 가져오는 필터이다.
