@@ -817,14 +817,14 @@ class PostViewSet(viewsets.ModelViewSet):
 
 - api/posts 로 조회했을 때
 
-![posts조회](D:\Users\SukyeongSeo\Desktop\바탕 화면\posts조회.png)
-
+![posts조회](https://user-images.githubusercontent.com/80563849/142750164-46dc8b86-2373-4db4-a115-5a66c1f6aa93.png)
 
 
 - location이 Jeju인 게시글만 조회하는 api
-
-![locationfilter](D:\Users\SukyeongSeo\Desktop\바탕 화면\locationfilter.png)
-
+![locationfilter](https://user-images.githubusercontent.com/80563849/142750167-75776daf-8ed7-4c57-a8c9-2e933c30af2f.png)
 
 
-- location이 Jeju이고, id가 1인 post_author의 게시글을 조회하는 api ![location&authorfilter](D:\Users\SukyeongSeo\Desktop\바탕 화면\location&authorfilter.png)
+
+- location이 Jeju이고, id가 1인 post_author의 게시글을 조회하는 api
+![location authorfilter](https://user-images.githubusercontent.com/80563849/142750174-667efe6d-672d-4a29-bc0f-d1de8cd6d7f4.png)
+
