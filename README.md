@@ -821,6 +821,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 - location이 Jeju인 게시글만 조회하는 api
+
 ![locationfilter](https://user-images.githubusercontent.com/80563849/142750167-75776daf-8ed7-4c57-a8c9-2e933c30af2f.png)
 
 
