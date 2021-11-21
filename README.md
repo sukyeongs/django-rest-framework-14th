@@ -750,12 +750,9 @@ delete() 함수로 삭제를 한 후, `Http204`로 삭제가 완료되었음을 
 
 
 
-## 6주차 과제
 ### 1. Viewset으로 리팩토링하기
 
-APIView → ViewSet
-
-#### 1) ModelViewSet 상속 받기 
+#### 1) ModelViewSet 상속 받기
 
 ```python
 # views.py
@@ -769,6 +766,8 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 ```
+
+
 
 
 
@@ -792,18 +791,17 @@ urlpatterns = router.urls
 
 from .models import *
 from .serializers import PostSerializer
-from rest_framework import viewsets
-from django_filters.rest_framework import filters
+from rest_framework import viewsets, mixins
+from django_filters.rest_framework import filters, FilterSet
 from django_filters.rest_framework import DjangoFilterBackend
 
 
-class PostFilter(filters.FilterSet):
+class PostFilter(FilterSet):
+    post_author = filters.CharFilter(field_name='author')
 
     class Meta:
         model = Post
-        fields = {
-            'location': 'Seoul'
-        }
+        fields = ['location',]
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -813,4 +811,20 @@ class PostViewSet(viewsets.ModelViewSet):
     filterset_class = PostFilter
 ```
 
-에러 잡기 전) 간단한 필터 기능을 구현했다. Post의 위치가 서울인 게시글만 가져오는 필터이다.
+
+
+#### 결과
+
+- api/posts 로 조회했을 때
+
+![posts조회](D:\Users\SukyeongSeo\Desktop\바탕 화면\posts조회.png)
+
+
+
+- location이 Jeju인 게시글만 조회하는 api
+
+![locationfilter](D:\Users\SukyeongSeo\Desktop\바탕 화면\locationfilter.png)
+
+
+
+- location이 Jeju이고, id가 1인 post_author의 게시글을 조회하는 api ![location&authorfilter](D:\Users\SukyeongSeo\Desktop\바탕 화면\location&authorfilter.png)
