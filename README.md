@@ -751,6 +751,77 @@ delete() 함수로 삭제를 한 후, `Http204`로 삭제가 완료되었음을 
 
 
 ### 1. Viewset으로 리팩토링하기
+### 0. 6주차 과제를 하면서
+
+정말 장고에서 볼 수 있는 에러란 에러는 모두 다 본 것 같다. (에러 해결 방법은 아래 '마주한 에러'에 작성했다)
+
+- `IntegrityError`
+
+- `OperationalError(1054)`
+
+- `RelatedObjectDoesNotExistError`
+
+- `DataError(1265, "Data truncated for column ... at row ...")`
+
+- `You are trying to add a non-nullable field`
+- `ImproperlyConfigured`
+- `TemplateDoesNotExist`
+
+에러에 대한 내용들을 살펴보니 지난주와 마찬가지로 FK 문제라고 생각을 했고, 결국 모델부터 천천히 다시 만들어야겠다는 생각을 했다. 
+
+맞다... DB도 그냥 버리고 새로 시작했다.....ㅎㅎ.. 이러면서 시간을 많이 잡아먹어 Permission과 Validation은 손을 못 댔다....😥 
+#### models.py 생성 (✨AbstracBaseUser✨)
+
+만들고 싶었던 API는 Post를 생성, 조회하는 API이기 때문에, Post와 연관관계에 있는 User를 제대로 작성해야겠다고 생각했다. User를 제외한 나머지 모델들은 지난주와 같다.
+
+```python
+# models.py
+
+from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
+from django.db import models
+from django.utils import timezone
+
+
+class UserManager(BaseUserManager):   # BaseUserManager를 상속받은 UserManager 생성
+    use_in_migrations = True
+
+    def create_user(self, email, password):
+
+        if not email:
+            raise ValueError('must have user email')
+        if not password:
+            raise ValueError('must have user password')
+
+        user = self.model(
+            email=self.normalize_email(email),
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+
+class User(AbstractBaseUser):
+    objects = UserManager()
+
+    username = models.CharField(max_length=255, unique=True)
+    USERNAME_FIELD = 'username'
+    instagram_id = models.CharField(max_length=255, unique=True)
+    is_professional = models.BooleanField(default=False)
+
+    class Meta:
+        managed = True
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+
+    def __str__(self):
+        return self.username
+```
+
+위처럼 `User`모델을 수정하고, `migration`을 다시 진행했다. 
+
+
+
+그 후 `python shell`에서 `장고 ORM`을 사용하여 데이터를 삽입했다. 
 
 #### 1) ModelViewSet 상속 받기
 
@@ -830,3 +901,20 @@ class PostViewSet(viewsets.ModelViewSet):
 
 ![location authorfilter](https://user-images.githubusercontent.com/80563849/142750174-667efe6d-672d-4a29-bc0f-d1de8cd6d7f4.png)
 
+### 3. 마주한 에러와 해결방법
+
+- `IntegrityError` : User 모델을 수정하여 해결했다. (UserManager 생성)
+
+- `OperationalError(1054)` : 기존 DB 삭제 후 migrate 다시 하여 해결했다.
+
+- `RelatedObjectDoesNotExistError` : User 모델을 수정하여 해결했다. (UserManager 생성)
+
+- `DataError(1265, "Data truncated for column ... at row ...")` : mysql workbench에서 id값 BigINT로 수정하여 해결했다.
+
+- `You are trying to add a non-nullable field` : 기존 DB 삭제 후 migrate 다시 하여 해결했다.
+- `ImproperlyConfigured` : settings/base.py의 INSTALLED_APPS에 'django_filters'를 추가하여 해결했다.
+- `TemplateDoesNotExist` : settings/base.py의 INSTALLED_APPS에 'django_filters'를 추가하여 해결했다.
+
+
+### 4. 간단한 회고
+에러때문에 이번 주차 과제를 완벽히 이해하지는 못한 것 같아 아쉽다. 추후에 Permission과 Validation도 공부하여 추가해야겠다. 넘우.. 힘들었다......
